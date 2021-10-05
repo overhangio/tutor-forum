@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forum
+spec:
+  type: NodePort
+  ports:
+    - port: {{ FORUM_PORT }}
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: forum
