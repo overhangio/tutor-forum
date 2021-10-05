@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forum
+  labels:
+    app.kubernetes.io/name: forum
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: forum
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: forum
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+        - name: forum
+          image: {{ FORUM_DOCKER_IMAGE }}
+          ports:
+            - containerPort: {{ FORUM_PORT }}
+          env:
+            - name: SEARCH_SERVER
+              value: "{{ ELASTICSEARCH_SCHEME }}://{{ ELASTICSEARCH_HOST }}:{{ ELASTICSEARCH_PORT }}"
+            - name: MONGODB_AUTH
+              value: "{% if MONGODB_USERNAME and MONGODB_PASSWORD %}{{ MONGODB_USERNAME}}:{{ MONGODB_PASSWORD }}@{% endif %}"
+            - name: MONGODB_HOST
+              value: "{{ MONGODB_HOST }}"
+            - name: MONGODB_PORT
+              value: "{{ MONGODB_PORT }}"
+            - name: MONGODB_DATABASE
+              value: "{{ FORUM_MONGODB_DATABASE }}"
