@@ -25,7 +25,7 @@ hooks = {
     "build-image": {
         "fourm": "{{ FOURM_DOCKER_IMAGE }}",
     },
-    "init": [],
+    "init": ['fourm'],
 }
 
 
