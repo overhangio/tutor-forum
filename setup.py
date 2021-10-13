@@ -36,7 +36,7 @@ setup(
     author="Overhang.IO",
     description="forum plugin for Tutor",
     long_description=load_readme(),
-    packages=find_packages(include=["tutorforucm.*"], exclude=["tests*"]),
+    packages=find_packages(include=["tutorforum.*"], exclude=["tests*"]),
     include_package_data=True,
     python_requires=">=3.5",
     install_requires=["tutor>=12.0.0,<13.0.0"],
