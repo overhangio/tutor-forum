@@ -1,4 +1,4 @@
-Fourm plugin for `Tutor <https://docs.tutor.overhang.io>`__
+Forum plugin for `Tutor <https://docs.tutor.overhang.io>`__
 ============================================================
 
 .. TODO add some information here
