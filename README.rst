@@ -17,6 +17,15 @@ Usage
 
     tutor plugins enable forum
     tutor local quickstart
+
+Configuration
+-------------
+
+- ``FORUM_DOCKER_IMAGE`` (default: ``""{{ DOCKER_REGISTRY }}overhangio/openedx-forum:{{ TUTOR_VERSION }}"``)
+- ``FORUM_HOST`` (default: ``"forum.{{ LMS_HOST }}"``)
+- ``FORUM_MONGODB_DATABASE`` (default: ``"cs_comments_service"``)
+- ``FORUM_PORT`` (default: ``"4567""``)
+- ``FORUM_API_KEY`` (default: ``"forumapikey"``)
  
 License
 -------
