@@ -39,8 +39,8 @@ setup(
     long_description_content_type="text/x-rst",
     packages=find_packages(exclude=["tests*"]),
     include_package_data=True,
-    python_requires=">=3.5",
-    install_requires=["tutor>=12.0.0,<13.0.0"],
+    python_requires=">=3.6",
+    install_requires=["tutor>=13.0.0,<14.0.0"],
     entry_points={
         "tutor.plugin.v0": [
             "forum = tutorforum.plugin"
@@ -52,7 +52,6 @@ setup(
         "License :: OSI Approved :: GNU Affero General Public License v3",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
