@@ -1,0 +1,3 @@
+forum:
+  stdin_open: true
+  tty: true
