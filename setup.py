@@ -42,7 +42,7 @@ setup(
     python_requires=">=3.6",
     install_requires=["tutor>=14.0.0,<15.0.0"],
     entry_points={
-        "tutor.plugin.v0": [
+        "tutor.plugin.v1": [
             "forum = tutorforum.plugin"
         ]
     },
