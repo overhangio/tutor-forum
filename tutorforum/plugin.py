@@ -32,6 +32,10 @@ tutor_hooks.Filters.IMAGES_PULL.add_item((
     "forum",
     "{{ FORUM_DOCKER_IMAGE }}",
 ))
+tutor_hooks.Filters.IMAGES_PUSH.add_item((
+    "forum",
+    "{{ FORUM_DOCKER_IMAGE }}",
+))
 
 # Add the "templates" folder as a template root
 tutor_hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
