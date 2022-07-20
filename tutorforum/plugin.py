@@ -37,6 +37,20 @@ tutor_hooks.Filters.IMAGES_PUSH.add_item((
     "{{ FORUM_DOCKER_IMAGE }}",
 ))
 
+@tutor_hooks.Filters.COMPOSE_MOUNTS.add()
+def _mount_cs_comments_service(volumes, name):
+    """
+    When mounting cs_comments_service with `--mount=/path/to/cs_comments_service`,
+    bind-mount the host repo in the forum container.
+    """
+    if name == "cs_comments_service":
+        path = "/app/cs_comments_service"
+        volumes += [
+            ("forum", path),
+            ("forum-job", path),
+        ]
+    return volumes
+
 # Add the "templates" folder as a template root
 tutor_hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
     pkg_resources.resource_filename("tutorforum", "templates")
