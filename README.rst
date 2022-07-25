@@ -29,6 +29,15 @@ Configuration
 - ``FORUM_PORT`` (default: ``"4567""``)
 - ``FORUM_API_KEY`` (default: ``"forumapikey"``)
 
+Debugging
+---------
+
+To debug the comments service, you are encouraged to mount the cs_comments_service repo from the host in the development container:
+
+    tutor dev start --mount /path/to/cs_comments_service
+
+Feel free to add breakpoints (``import pdb; pdb.set_trace()``) anywhere in your source code to debug your application.
+
 License
 -------
 
