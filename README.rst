@@ -36,7 +36,9 @@ To debug the comments service, you are encouraged to mount the cs_comments_servi
 
     tutor dev start --mount /path/to/cs_comments_service
 
-Feel free to add breakpoints (``import pdb; pdb.set_trace()``) anywhere in your source code to debug your application.
+Once a local repository is mounted in the image, you will have to install all gems (ruby dependencies)::
+
+    bundle install
 
 License
 -------
