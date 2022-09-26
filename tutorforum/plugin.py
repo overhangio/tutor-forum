@@ -14,6 +14,8 @@ config = {
         "MONGODB_DATABASE": "cs_comments_service",
         "PORT": "4567",
         "API_KEY": "forumapikey",
+        "REPOSITORY": "https://github.com/openedx/cs_comments_service.git",
+        "REPOSITORY_VERSION": "{{ OPENEDX_COMMON_VERSION }}"
     },
 }
 
