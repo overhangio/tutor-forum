@@ -1,7 +1,7 @@
 Forum plugin for `Tutor <https://docs.tutor.overhang.io>`__
 ============================================================
 
-This plugin adds `discussion forums <https://github.com/edx/cs_comments_service>`__ to your `Open edX <https://open.edx.org/>`__ platform, such that students can have conversations about the courses they are following right in your LMS.
+This plugin adds `discussion forums <https://github.com/openedx/cs_comments_service>`__ to your `Open edX <https://openedx.org/>`__ platform, such that students can have conversations about the courses they are following right in your LMS.
 
 .. image:: https://overhang.io/static/catalog/screenshots/forum.png
   :alt: Forum screenshot
@@ -39,6 +39,12 @@ To debug the comments service, you are encouraged to mount the cs_comments_servi
 Once a local repository is mounted in the image, you will have to install all gems (ruby dependencies)::
 
     bundle install
+
+Troubleshooting
+---------------
+
+This Tutor plugin is maintained by Ghassan Maslamani from `Zaat.dev <https://Zaat.dev>`__. Community support is available from the official `Open edX forum <https://discuss.openedx.org>`__. Do you need help with this plugin? See the `troubleshooting <https://docs.tutor.overhang.io/troubleshooting.html>`__ section from the Tutor documentation.
+
 
 License
 -------

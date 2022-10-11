@@ -31,16 +31,19 @@ setup(
     project_urls={
         "Code": "https://github.com/overhangio/tutor-forum",
         "Issue tracker": "https://github.com/overhangio/tutor-forum/issues",
+        "Community": "https://discuss.openedx.org",
     },
     license="AGPLv3",
     author="Overhang.IO",
+    maintainer="Zaat.dev",
+    maintainer_email="ghassan@zaat.dev",
     description="forum plugin for Tutor",
     long_description=load_readme(),
     long_description_content_type="text/x-rst",
     packages=find_packages(exclude=["tests*"]),
     include_package_data=True,
     python_requires=">=3.6",
-    install_requires=["tutor>=14.0.0,<15.0.0"],
+    install_requires=["tutor>=15.0.0,<16.0.0"],
     entry_points={
         "tutor.plugin.v1": [
             "forum = tutorforum.plugin"

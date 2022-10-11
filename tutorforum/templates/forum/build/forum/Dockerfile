@@ -1,10 +1,9 @@
-FROM docker.io/ruby:2.5.7-slim-stretch
-MAINTAINER Overhang.IO <contact@overhang.io>
+FROM docker.io/ruby:3.0.4-slim-bullseye
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
   apt upgrade -y && \
-  apt install -y git wget autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev
+  apt install -y git wget curl autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev
 
 # Install dockerize to wait for mongodb/elasticsearch availability
 ARG DOCKERIZE_VERSION=v0.6.1
@@ -24,11 +23,12 @@ ENV PATH :${PATH}
 USER app
 
 # Install rake and bundler
-ENV PATH "/app/bin:/app/.gem/ruby/2.5.0/bin:$PATH"
+ENV PATH "/app/bin:/app/.gem/ruby/3.0.4/bin:$PATH"
 RUN gem install --user-install bundler --version 1.17.3
-RUN gem install --user-install rake --version 13.0.1
+RUN gem install --user-install rake --version 13.0.6
 
 # Install forum
+ENV BUNDLE_GEMFILE Gemfile3
 RUN git clone https://github.com/openedx/cs_comments_service.git --branch {{ OPENEDX_COMMON_VERSION }} --depth 1 /app/cs_comments_service
 WORKDIR /app/cs_comments_service
 RUN bundle install --deployment
