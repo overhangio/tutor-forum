@@ -6,7 +6,7 @@ export SEARCH_SERVER_ES7="$SEARCH_SERVER"
 echo "Waiting for mongodb/elasticsearch..."
 
 WAIT_MONGODB=""
-if [ $MONGODB_HOST = "mongodb+srv://*" ]; then
+if [ "${MONGODB_HOST#mongodb+srv://}" != "${MONGODB_HOST}" ]; then
     echo "MongoDB is using SRV records, so we cannot wait for it to be ready"
     export MONGOHQ_URL="$MONGODB_HOST/$MONGODB_DATABASE"
 else
