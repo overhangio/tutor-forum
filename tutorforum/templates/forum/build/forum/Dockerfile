@@ -29,7 +29,7 @@ RUN gem install --user-install bundler --version 1.17.3
 RUN gem install --user-install rake --version 13.0.1
 
 # Install forum
-RUN git clone https://github.com/edx/cs_comments_service.git --branch {{ OPENEDX_COMMON_VERSION }} --depth 1 /app/cs_comments_service
+RUN git clone https://github.com/openedx/cs_comments_service.git --branch {{ OPENEDX_COMMON_VERSION }} --depth 1 /app/cs_comments_service
 WORKDIR /app/cs_comments_service
 RUN bundle install --deployment
 
