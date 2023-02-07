@@ -55,6 +55,30 @@ def _mount_cs_comments_service(volumes, name):
 tutor_hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
     pkg_resources.resource_filename("tutorforum", "templates")
 )
+
+def auth_mech_as_ruby(auth_mech):
+    """
+    Convert the authentication mechanism from the format
+    specified for the Python version to the Ruby version.
+
+    https://pymongo.readthedocs.io/en/stable/api/pymongo/database.html#pymongo.auth.MECHANISMS
+    https://github.com/mongodb/mongo-ruby-driver/blob/932b06b7564a5e5ae8d4ad08fe8d6ceee629e4eb/lib/mongo/auth.rb#L69
+    """
+    return {
+        "GSSAPI": ":gssapi",
+        "MONGODB-AWS": ":aws",
+        "MONGODB-CR": ":mongodb_cr",
+        "MONGODB-X509": ":mongodb_x509",
+        "PLAIN": ":plain",
+        "SCRAM-SHA-1": ":scram",
+        # SCRAM-256 is only supported from v2.6 of the ruby driver onwards.
+        # See https://github.com/mongodb/mongo-ruby-driver/releases/tag/v2.6.0
+        "SCRAM-SHA-256": ":scram"
+    }.get(auth_mech) or ""
+
+tutor_hooks.Filters.ENV_TEMPLATE_FILTERS.add_item(
+    ("auth_mech_as_ruby", auth_mech_as_ruby)
+)
 # Render the "build" and "apps" folders
 tutor_hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
     [

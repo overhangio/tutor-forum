@@ -28,6 +28,17 @@ Configuration
 - ``FORUM_MONGODB_DATABASE`` (default: ``"cs_comments_service"``)
 - ``FORUM_PORT`` (default: ``"4567""``)
 - ``FORUM_API_KEY`` (default: ``"forumapikey"``)
+- ``FORUM_MONGODB_USE_SSL``: (default: ``False``)
+- ``FORUM_MONGODB_AUTH_SOURCE``: (default: ``""``)
+- ``FORUM_MONGODB_AUTH_MECH``: (default: ``""``)
+
+Caveats for the `mongodb+srv://` syntax
+---------------------------------------
+
+While the newer [`mongodb+srv://`](https://www.mongodb.com/developer/products/mongodb/srv-connection-strings/) syntax for the `MONGODB_HOST` is supported, there are some tradeoffs:
+
+- Query paramaters in the URL are not supported. For example, the URL `mongodb+srv://test:test@tutor.local/?ssl=true&authSource=admin` is invalid. Please use the provided configuration options instead.
+- The username and password should form part of the URL in the format `mongodb+srv://username:password@host/`.
 
 Debugging
 ---------

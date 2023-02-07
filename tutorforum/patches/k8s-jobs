@@ -23,3 +23,9 @@ spec:
             value: "{{ MONGODB_PORT }}"
           - name: MONGODB_DATABASE
             value: "{{ FORUM_MONGODB_DATABASE }}"
+          - name: MONGOID_USE_SSL
+            value: "{{ 'true' if MONGODB_USE_SSL else 'false' }}"
+          - name: MONGOID_AUTH_SOURCE
+            value: "{{MONGODB_AUTH_SOURCE}}"
+          - name: MONGOID_AUTH_MECH
+            value: "{{ MONGODB_AUTH_MECHANISM|auth_mech_as_ruby }}"
