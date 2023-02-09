@@ -19,7 +19,7 @@ Usage
 ::
 
     tutor plugins enable forum
-    tutor local quickstart
+    tutor local launch
 
 Configuration
 -------------
