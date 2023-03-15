@@ -29,7 +29,11 @@ RUN gem install --user-install rake --version 13.0.6
 
 # Install forum
 ENV BUNDLE_GEMFILE Gemfile3
-RUN git clone https://github.com/openedx/cs_comments_service.git --branch {{ OPENEDX_COMMON_VERSION }} --depth 1 /app/cs_comments_service
+
+ARG FORUM_REPOSITORY={{ FORUM_REPOSITORY }}
+ARG FORUM_REPOSITORY_VERSION={{ FORUM_REPOSITORY_VERSION }}
+RUN git clone $FORUM_REPOSITORY --branch $FORUM_REPOSITORY_VERSION --depth 1 /app/cs_comments_service
+
 WORKDIR /app/cs_comments_service
 RUN bundle install --deployment
 

@@ -19,7 +19,7 @@ Usage
 ::
 
     tutor plugins enable forum
-    tutor local launch 
+    tutor local launch
 
 Configuration
 -------------
@@ -31,6 +31,8 @@ Configuration
 - ``FORUM_MONGODB_USE_SSL``: (default: ``False``)
 - ``FORUM_MONGODB_AUTH_SOURCE``: (default: ``""``)
 - ``FORUM_MONGODB_AUTH_MECH``: (default: ``""``)
+- ``FORUM_REPOSITORY`` (default: ``"https://github.com/openedx/cs_comments_service.git"``)
+- ``FORUM_REPOSITORY_VERSION`` (default: ``"{{ OPENEDX_COMMON_VERSION }}"``)
 
 Caveats for the `mongodb+srv://` syntax
 ---------------------------------------
