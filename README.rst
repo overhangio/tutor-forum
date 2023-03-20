@@ -39,7 +39,7 @@ Caveats for the `mongodb+srv://` syntax
 
 While the newer [`mongodb+srv://`](https://www.mongodb.com/developer/products/mongodb/srv-connection-strings/) syntax for the `MONGODB_HOST` is supported, there are some tradeoffs:
 
-- Query paramaters in the URL are not supported. For example, the URL `mongodb+srv://test:test@tutor.local/?ssl=true&authSource=admin` is invalid. Please use the provided configuration options instead.
+- Query parameters in the URL will be ignored by the forum. Please use the provided configuration options instead.
 - The username and password should form part of the URL in the format `mongodb+srv://username:password@host/`.
 
 Debugging
