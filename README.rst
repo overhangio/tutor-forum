@@ -37,7 +37,7 @@ Configuration
 Caveats for the `mongodb+srv://` syntax
 ---------------------------------------
 
-While the newer [`mongodb+srv://`](https://www.mongodb.com/developer/products/mongodb/srv-connection-strings/) syntax for the `MONGODB_HOST` is supported, there are some tradeoffs:
+While the newer `mongodb+srv:// <https://www.mongodb.com/developer/products/mongodb/srv-connection-strings/>`__ syntax for the `MONGODB_HOST` is supported, there are some tradeoffs:
 
 - Query parameters in the URL will be ignored by the forum. Please use the provided configuration options instead.
 - The username and password should form part of the URL in the format `mongodb+srv://username:password@host/`.
@@ -58,6 +58,10 @@ Troubleshooting
 
 This Tutor plugin is maintained by Ghassan Maslamani from `Zaat.dev <https://Zaat.dev>`__. Community support is available from the official `Open edX forum <https://discuss.openedx.org>`__. Do you need help with this plugin? See the `troubleshooting <https://docs.tutor.overhang.io/troubleshooting.html>`__ section from the Tutor documentation.
 
+Contributing
+------------
+
+Pull requests are welcome! Please read the `"contributing" section from the Tutor documentation <https://docs.tutor.overhang.io/tutor.html#contributing>`__.
 
 License
 -------

@@ -44,6 +44,7 @@ setup(
     include_package_data=True,
     python_requires=">=3.6",
     install_requires=["tutor>=15.0.0,<16.0.0"],
+    extras_require={"dev": ["scriv"]},
     entry_points={
         "tutor.plugin.v1": [
             "forum = tutorforum.plugin"
