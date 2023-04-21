@@ -28,7 +28,8 @@ RUN git clone $FORUM_REPOSITORY --branch $FORUM_REPOSITORY_VERSION --depth 1 /ap
 # Install ruby requirements
 WORKDIR /app/cs_comments_service
 ENV BUNDLE_GEMFILE Gemfile3
-RUN bundle install --deployment
+RUN bundle config set --local deployment 'true'
+RUN bundle install
 
 # Copy entrypoint
 COPY --chown=app:app ./bin/docker-entrypoint.sh /app/bin/docker-entrypoint.sh
