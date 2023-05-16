@@ -4,6 +4,7 @@ variables:
     TUTOR_PYPI_PACKAGE: tutor-forum
     OPENEDX_RELEASE: lilac
     GITHUB_REPO: overhangio/tutor-forum
+    IMAGES_BUILD_PLATFORM: "linux/amd64"
 
 include:
   - project: 'community/tutor-ci'
