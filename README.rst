@@ -11,7 +11,7 @@ Installation
 
 ::
 
-    pip install tutor-forum
+    tutor plugins install forum
 
 Usage
 -----
