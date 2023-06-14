@@ -17,7 +17,7 @@ USER app
 
 # Install rake and bundler
 ENV PATH "/app/.gem/ruby/3.0.4/bin:$PATH"
-RUN gem install --user-install bundler --version 1.17.3
+RUN gem install --user-install bundler --version 2.3.4
 RUN gem install --user-install rake --version 13.0.6
 
 # Clone repo
@@ -28,7 +28,8 @@ RUN git clone $FORUM_REPOSITORY --branch $FORUM_REPOSITORY_VERSION --depth 1 /ap
 # Install ruby requirements
 WORKDIR /app/cs_comments_service
 ENV BUNDLE_GEMFILE Gemfile3
-RUN bundle install --deployment
+RUN bundle config set --local deployment 'true'
+RUN bundle install
 
 # Copy entrypoint
 COPY --chown=app:app ./bin/docker-entrypoint.sh /app/bin/docker-entrypoint.sh
