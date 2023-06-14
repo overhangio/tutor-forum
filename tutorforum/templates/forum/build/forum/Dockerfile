@@ -17,7 +17,7 @@ USER app
 
 # Install rake and bundler
 ENV PATH "/app/.gem/ruby/3.0.4/bin:$PATH"
-RUN gem install --user-install bundler --version 1.17.3
+RUN gem install --user-install bundler --version 2.3.4
 RUN gem install --user-install rake --version 13.0.6
 
 # Clone repo
