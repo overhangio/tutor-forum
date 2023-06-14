@@ -1,7 +1,8 @@
 from glob import glob
 import os
-import pkg_resources
 import urllib.parse
+
+import pkg_resources
 
 from tutor import hooks as tutor_hooks
 
@@ -20,12 +21,13 @@ config = {
     },
 }
 
-tutor_hooks.Filters.COMMANDS_INIT.add_item(
-    (
-        "forum",
-        ("forum", "tasks", "forum", "init"),
-    )
-)
+with open(
+    pkg_resources.resource_filename(
+        "tutorforum", os.path.join("templates", "forum", "tasks", "forum", "init")
+    ),
+    encoding="utf8",
+) as f:
+    tutor_hooks.Filters.CLI_DO_INIT_TASKS.add_item(("forum", f.read()))
 
 tutor_hooks.Filters.IMAGES_BUILD.add_item(
     (
