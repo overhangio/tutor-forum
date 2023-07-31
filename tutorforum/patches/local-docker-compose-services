@@ -9,5 +9,6 @@ forum:
     MONGOID_AUTH_SOURCE: "{{ MONGODB_AUTH_SOURCE }}"
     MONGOID_AUTH_MECH: "{{ MONGODB_AUTH_MECHANISM|auth_mech_as_ruby }}"
     MONGOID_USE_SSL: "{{ 'true' if MONGODB_USE_SSL else 'false' }}"
+    {{ patch("forum-local-docker-compose-env")|indent(4) }}
   restart: unless-stopped
   depends_on: {{ [("elasticsearch", RUN_ELASTICSEARCH), ("mongodb", RUN_MONGODB)]|list_if }}

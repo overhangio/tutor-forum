@@ -1,0 +1,1 @@
+- [Improvement] Adds patches for k8s and docker config to inject additional environment variables via patches. (by @xitij2000)

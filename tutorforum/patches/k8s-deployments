@@ -39,4 +39,4 @@ spec:
               value: "{{MONGODB_AUTH_SOURCE}}"
             - name: MONGOID_AUTH_MECH
               value: "{{ MONGODB_AUTH_MECHANISM|auth_mech_as_ruby }}"
-
+            {{ patch("forum-k8s-env")|indent(12) }}
