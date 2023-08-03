@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from glob import glob
 import os
 import urllib.parse
@@ -126,15 +128,27 @@ def forum_mongodb_host(host: str) -> str:
 
 @FORUM_ENV.add(priority=tutor_hooks.priorities.HIGH)
 def _add_base_forum_env(forum_env: dict) -> dict[str, str]:
+    """
+    Add environment variables needed for standard build of forum service.
+    """
     forum_env.update(FORUM_ENV_BASE)
     return forum_env
 
 
-@tutor_hooks.Filters.ENV_PATCHES.add()
+@tutor_hooks.Filters.ENV_PATCHES.add(priority=tutor_hooks.priorities.HIGH)
 def _forum_env_patches(patches):
+    """
+    Adds environment variables from FORUM_ENV filter to patches.
+    """
+    # The forum service is configured entirely via environment variables. Docker
+    # Compose and Kubernetes use different syntax to specify environement
+    # variables. The following code reads environemnt variables from the
+    # `FORUM_ENV` filter and rendered in the appropriate format for both so they
+    # can be included as patches.
     k8s_env_patch = ""
     local_env_patch = ""
     for key, value in FORUM_ENV.apply({}).items():
+        # Kubernetes
         k8s_env_patch += f'- name: {key}\n  value: "{value}"\n'
         local_env_patch += f'{key}: "{value}"\n'
     patches += [("forum-k8s-env", k8s_env_patch), ("forum-local-env", local_env_patch)]

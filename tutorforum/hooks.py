@@ -3,6 +3,8 @@ These hooks are stored in a separate module. If they were included in plugin.py,
 the tutor-forum hooks would be created in the context of some other plugin that imports
 them.
 """
+from __future__ import annotations
+
 from tutor.core.hooks import Filter
 
 

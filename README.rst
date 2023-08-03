@@ -34,6 +34,31 @@ Configuration
 - ``FORUM_REPOSITORY`` (default: ``"https://github.com/openedx/cs_comments_service.git"``)
 - ``FORUM_REPOSITORY_VERSION`` (default: ``"{{ OPENEDX_COMMON_VERSION }}"``)
 
+Customising Environment Variables
+---------------------------------
+
+To add, or modify environment variables that are supplied to the forum service,
+you can use the ``FORUM_ENV`` hook.
+
+To add or modify a environment variable, update the corresponding entry in the
+``FORUM_ENV`` dict as follows:
+
+.. code-block:: python
+
+    from tutorforum.hooks import FORUM_ENV
+
+    @FORUM_ENV.add()
+    def _add_forum_env_vars(env_vars):
+        env_vars.update({ "NEW_ENV_VAR": "VALUE" })
+        return env_vars
+
+If the environment variable already exists, it will be overridden, otherwise it
+will be added. Note that if multiple plugins override the same value, the last
+override will apply.
+
+It is posible to use templates when setting the above values.
+
+
 Caveats for the `mongodb+srv://` syntax
 ---------------------------------------
 
