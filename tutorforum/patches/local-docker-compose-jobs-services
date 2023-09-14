@@ -1,12 +1,5 @@
 forum-job:
   image: {{ FORUM_DOCKER_IMAGE }}
   environment:
-    SEARCH_SERVER: "{{ ELASTICSEARCH_SCHEME }}://{{ ELASTICSEARCH_HOST }}:{{ ELASTICSEARCH_PORT }}"
-    MONGODB_AUTH: "{% if MONGODB_USERNAME and MONGODB_PASSWORD %}{{ MONGODB_USERNAME}}:{{ MONGODB_PASSWORD }}@{% endif %}"
-    MONGODB_HOST: "{{ MONGODB_HOST|forum_mongodb_host }}"
-    MONGODB_PORT: "{{ MONGODB_PORT }}"
-    MONGODB_DATABASE: "{{ FORUM_MONGODB_DATABASE }}"
-    MONGOID_AUTH_SOURCE: "{{ MONGODB_AUTH_SOURCE }}"
-    MONGOID_AUTH_MECH: "{{ MONGODB_AUTH_MECHANISM|auth_mech_as_ruby }}"
-    MONGOID_USE_SSL: "{{ 'true' if MONGODB_USE_SSL else 'false' }}"
+    {{ patch("forum-local-env")|indent(4) }}
   depends_on: {{ [("elasticsearch", RUN_ELASTICSEARCH), ("mongodb", RUN_MONGODB)]|list_if }}

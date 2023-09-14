@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from glob import glob
 import os
 import urllib.parse
@@ -7,7 +9,7 @@ import pkg_resources
 from tutor import hooks as tutor_hooks
 
 from .__about__ import __version__
-
+from .hooks import FORUM_ENV
 
 config = {
     "defaults": {
@@ -19,6 +21,18 @@ config = {
         "REPOSITORY": "https://github.com/openedx/cs_comments_service.git",
         "REPOSITORY_VERSION": "{{ OPENEDX_COMMON_VERSION }}",
     },
+}
+
+FORUM_ENV_BASE: dict[str,str] = {
+    "SEARCH_SERVER": "{{ ELASTICSEARCH_SCHEME }}://{{ ELASTICSEARCH_HOST }}:{{ ELASTICSEARCH_PORT }}",
+    "MONGODB_AUTH":
+     "{% if MONGODB_USERNAME and MONGODB_PASSWORD %}{{ MONGODB_USERNAME}}:{{ MONGODB_PASSWORD }}@{% endif %}",
+    "MONGODB_HOST": "{{ MONGODB_HOST|forum_mongodb_host }}",
+    "MONGODB_PORT": "{{ MONGODB_PORT }}",
+    "MONGODB_DATABASE": "{{ FORUM_MONGODB_DATABASE }}",
+    "MONGOID_AUTH_SOURCE": "{{ MONGODB_AUTH_SOURCE }}",
+    "MONGOID_AUTH_MECH": "{{ MONGODB_AUTH_MECHANISM|auth_mech_as_ruby }}",
+    "MONGOID_USE_SSL": "{{ 'true' if MONGODB_USE_SSL else 'false' }}",
 }
 
 with open(
@@ -110,6 +124,35 @@ def forum_mongodb_host(host: str) -> str:
     # full url where we concatenate the database name.
     parsed[2] = parsed[2].rstrip("/")
     return urllib.parse.urlunparse(parsed)
+
+
+@FORUM_ENV.add(priority=tutor_hooks.priorities.HIGH)
+def _add_base_forum_env(forum_env: dict) -> dict[str, str]:
+    """
+    Add environment variables needed for standard build of forum service.
+    """
+    forum_env.update(FORUM_ENV_BASE)
+    return forum_env
+
+
+@tutor_hooks.Filters.ENV_PATCHES.add(priority=tutor_hooks.priorities.HIGH)
+def _forum_env_patches(patches):
+    """
+    Adds environment variables from FORUM_ENV filter to patches.
+    """
+    # The forum service is configured entirely via environment variables. Docker
+    # Compose and Kubernetes use different syntax to specify environement
+    # variables. The following code reads environemnt variables from the
+    # `FORUM_ENV` filter and rendered in the appropriate format for both so they
+    # can be included as patches.
+    k8s_env_patch = ""
+    local_env_patch = ""
+    for key, value in FORUM_ENV.apply({}).items():
+        # Kubernetes
+        k8s_env_patch += f'- name: {key}\n  value: "{value}"\n'
+        local_env_patch += f'{key}: "{value}"\n'
+    patches += [("forum-k8s-env", k8s_env_patch), ("forum-local-env", local_env_patch)]
+    return patches
 
 
 tutor_hooks.Filters.ENV_TEMPLATE_FILTERS.add_items(
