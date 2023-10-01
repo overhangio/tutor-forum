@@ -1,5 +1,11 @@
 # https://hub.docker.com/_/ruby/tags
-FROM docker.io/ruby:3.0.5-slim-bullseye
+ARG DOCKER_REGISTRY={{ DOCKER_REGISTRY }}
+
+# Define the dockerize as a separate stage to allow copying from it while using
+# a specififc registry.
+FROM ${DOCKER_REGISTRY}/powerman/dockerize:0.19.0 as dep-powerman-dockerize
+
+FROM ${DOCKER_REGISTRY}/ruby:3.0.5-slim-bullseye
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
@@ -8,7 +14,7 @@ RUN apt update && \
 
 # Install dockerize to wait for mongodb/elasticsearch availability
 # https://hub.docker.com/r/powerman/dockerize/tags
-COPY --from=docker.io/powerman/dockerize:0.19.0 /usr/local/bin/dockerize /usr/local/bin/dockerize
+COPY --from=dep-powerman-dockerize /usr/local/bin/dockerize /usr/local/bin/dockerize
 
 # Create unprivileged "app" user
 # From then on, run as unprivileged app user
