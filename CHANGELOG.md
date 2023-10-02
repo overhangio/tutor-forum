@@ -19,3 +19,17 @@ instructions, because git commits are used to generate release notes:
 
 <!-- scriv-insert-here -->
 
+<a id='changelog-16.0.1'></a>
+## v16.0.1 (2023-10-02)
+
+- [Improvement] Add a scriv-compliant changelog. (by @regisb)
+
+- [Improvement] Introduces the `FORUM_ENV` filter to which any additional forum
+  which simplifies management of environment variables for the forum service.
+  Additional environment variables can be added to this filter, and existing
+  values can be removed as needed by plugins. These are rendered into the new
+  `forum-k8s-env` and `forum-local-env` patches for the kubernetes and docker
+  configs respectively. (by @xitij2000)
+
+- [Improvement] Add support for get subscribers of a thread https://github.com/openedx/cs_comments_service/pull/415. (by @Ian2012)
+
