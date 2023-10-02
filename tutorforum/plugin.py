@@ -3,10 +3,11 @@ from __future__ import annotations
 from glob import glob
 import os
 import urllib.parse
+import typing as t
 
 import pkg_resources
 
-from tutor import hooks as tutor_hooks
+from tutor import hooks as tutor_hooks, filters
 
 from .__about__ import __version__
 from .hooks import FORUM_ENV
@@ -66,7 +67,7 @@ tutor_hooks.Filters.IMAGES_PUSH.add_item(
 
 
 @tutor_hooks.Filters.COMPOSE_MOUNTS.add()
-def _mount_cs_comments_service(volumes, name):
+def _mount_cs_comments_service(volumes: t.List[t.Tuple[str, str]] , name: str) -> t.List[t.Tuple[str, str]]:
     """
     When mounting cs_comments_service with `--mount=/path/to/cs_comments_service`,
     bind-mount the host repo in the forum container.
@@ -86,7 +87,7 @@ tutor_hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
 )
 
 
-def auth_mech_as_ruby(auth_mech):
+def auth_mech_as_ruby(auth_mech: str) -> str:
     """
     Convert the authentication mechanism from the format
     specified for the Python version to the Ruby version.
@@ -127,16 +128,15 @@ def forum_mongodb_host(host: str) -> str:
 
 
 @FORUM_ENV.add(priority=tutor_hooks.priorities.HIGH)
-def _add_base_forum_env(forum_env: dict) -> dict[str, str]:
+def _add_base_forum_env(forum_env: t.Dict[str, str]) -> t.Dict[str, str]:
     """
     Add environment variables needed for standard build of forum service.
     """
     forum_env.update(FORUM_ENV_BASE)
     return forum_env
 
-
 @tutor_hooks.Filters.ENV_PATCHES.add(priority=tutor_hooks.priorities.HIGH)
-def _forum_env_patches(patches):
+def _forum_env_patches(patches: tutor_hooks.Filters[list[tuple[str, str]], []]) -> tutor_hooks.Filters[list[tuple[str, str]], []]:
     """
     Adds environment variables from FORUM_ENV filter to patches.
     """
