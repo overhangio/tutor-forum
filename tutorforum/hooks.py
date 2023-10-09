@@ -7,5 +7,4 @@ from __future__ import annotations
 
 from tutor.core.hooks import Filter
 
-
 FORUM_ENV: Filter[dict[str, str], []] = Filter()
