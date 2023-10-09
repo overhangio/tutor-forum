@@ -70,7 +70,9 @@ tutor_hooks.Filters.IMAGES_PUSH.add_item(
 
 
 @tutor_hooks.Filters.COMPOSE_MOUNTS.add()
-def _mount_cs_comments_service(volumes, name):
+def _mount_cs_comments_service(
+    volumes: list[tuple[str, str]], name: str
+) -> list[tuple[str, str]]:
     """
     When mounting cs_comments_service with `--mount=/path/to/cs_comments_service`,
     bind-mount the host repo in the forum container.
@@ -90,7 +92,7 @@ tutor_hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
 )
 
 
-def auth_mech_as_ruby(auth_mech):
+def auth_mech_as_ruby(auth_mech: str) -> str:
     """
     Convert the authentication mechanism from the format
     specified for the Python version to the Ruby version.
@@ -131,7 +133,7 @@ def forum_mongodb_host(host: str) -> str:
 
 
 @FORUM_ENV.add(priority=tutor_hooks.priorities.HIGH)
-def _add_base_forum_env(forum_env: dict) -> dict[str, str]:
+def _add_base_forum_env(forum_env: dict[str, str]) -> dict[str, str]:
     """
     Add environment variables needed for standard build of forum service.
     """
@@ -140,7 +142,7 @@ def _add_base_forum_env(forum_env: dict) -> dict[str, str]:
 
 
 @tutor_hooks.Filters.ENV_PATCHES.add(priority=tutor_hooks.priorities.HIGH)
-def _forum_env_patches(patches):
+def _forum_env_patches(patches: list[tuple[str, str]]) -> list[tuple[str, str]]:
     """
     Adds environment variables from FORUM_ENV filter to patches.
     """
