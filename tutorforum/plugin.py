@@ -145,8 +145,8 @@ def _forum_env_patches(patches):
     Adds environment variables from FORUM_ENV filter to patches.
     """
     # The forum service is configured entirely via environment variables. Docker
-    # Compose and Kubernetes use different syntax to specify environement
-    # variables. The following code reads environemnt variables from the
+    # Compose and Kubernetes use different syntax to specify environment
+    # variables. The following code reads environment variables from the
     # `FORUM_ENV` filter and rendered in the appropriate format for both so they
     # can be included as patches.
     k8s_env_patch = ""
