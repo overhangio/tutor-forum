@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from glob import glob
 import os
+import typing as t
 import urllib.parse
+from glob import glob
 
 import pkg_resources
-
 from tutor import hooks as tutor_hooks
 from tutor.__about__ import __version_suffix__
 
@@ -28,10 +28,9 @@ config = {
     },
 }
 
-FORUM_ENV_BASE: dict[str,str] = {
+FORUM_ENV_BASE: dict[str, str] = {
     "SEARCH_SERVER": "{{ ELASTICSEARCH_SCHEME }}://{{ ELASTICSEARCH_HOST }}:{{ ELASTICSEARCH_PORT }}",
-    "MONGODB_AUTH":
-     "{% if MONGODB_USERNAME and MONGODB_PASSWORD %}{{ MONGODB_USERNAME}}:{{ MONGODB_PASSWORD }}@{% endif %}",
+    "MONGODB_AUTH": "{% if MONGODB_USERNAME and MONGODB_PASSWORD %}{{ MONGODB_USERNAME}}:{{ MONGODB_PASSWORD }}@{% endif %}",
     "MONGODB_HOST": "{{ MONGODB_HOST|forum_mongodb_host }}",
     "MONGODB_PORT": "{{ MONGODB_PORT }}",
     "MONGODB_DATABASE": "{{ FORUM_MONGODB_DATABASE }}",
