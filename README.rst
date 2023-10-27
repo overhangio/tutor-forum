@@ -81,8 +81,7 @@ Once a local repository is mounted in the image, you will have to install all ge
 Troubleshooting
 ---------------
 
-This Tutor plugin is maintained by Ghassan Maslamani from `Zaat.dev <https://Zaat.dev>`__. Community support is available from the official `Open edX forum <https://discuss.openedx.org>`__. Do you need help with this plugin? See the `troubleshooting <https://docs.tutor.edly.io/troubleshooting.html>`__ section from the Tutor documentation.
-
+This Tutor plugin is maintained by Ghassan Maslamani from `Abstract-Technology <https://abstract-technology.de>`__. Community support is available from the official `Open edX forum <https://discuss.openedx.org>`__. Do you need help with this plugin? See the `troubleshooting <https://docs.tutor.edly.io/troubleshooting.html>`__ section from the Tutor documentation.
 
 License
 -------
