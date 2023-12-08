@@ -2,7 +2,7 @@ variables:
     TUTOR_PLUGIN: forum
     TUTOR_IMAGES: forum
     TUTOR_PYPI_PACKAGE: tutor-forum
-    OPENEDX_RELEASE: lilac
+    OPENEDX_RELEASE: palm
     GITHUB_REPO: overhangio/tutor-forum
 
 include:

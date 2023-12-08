@@ -19,6 +19,12 @@ instructions, because git commits are used to generate release notes:
 
 <!-- scriv-insert-here -->
 
+<a id='changelog-16.0.2'></a>
+## v16.0.2 (2023-12-08)
+
+- [Improvement] Support arm64 architecture. (by @ghassanmas)
+- [Improvement] Added Makefile and test action to repository and formatted code with Black and isort. (by @CodeWithEmad)
+
 <a id='changelog-16.0.1'></a>
 ## v16.0.1 (2023-10-02)
 
