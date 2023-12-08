@@ -62,7 +62,7 @@ It is posible to use templates when setting the above values.
 Caveats for the `mongodb+srv://` syntax
 ---------------------------------------
 
-While the newer [`mongodb+srv://`](https://www.mongodb.com/developer/products/mongodb/srv-connection-strings/) syntax for the `MONGODB_HOST` is supported, there are some tradeoffs:
+While the newer `mongodb+srv:// <https://www.mongodb.com/developer/products/mongodb/srv-connection-strings/>`__ syntax for the `MONGODB_HOST` is supported, there are some tradeoffs:
 
 - Query parameters in the URL will be ignored by the forum. Please use the provided configuration options instead.
 - The username and password should form part of the URL in the format `mongodb+srv://username:password@host/`.
