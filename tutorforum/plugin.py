@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 import os
-import typing as t
 import urllib.parse
 from glob import glob
 
-import pkg_resources
+import importlib_resources
 from tutor import hooks as tutor_hooks
 from tutor.__about__ import __version_suffix__
 
@@ -40,8 +39,9 @@ FORUM_ENV_BASE: dict[str, str] = {
 }
 
 with open(
-    pkg_resources.resource_filename(
-        "tutorforum", os.path.join("templates", "forum", "tasks", "forum", "init")
+    str(
+        importlib_resources.files("tutorforum")
+        / os.path.join("templates", "forum", "tasks", "forum", "init")
     ),
     encoding="utf8",
 ) as f:
@@ -88,7 +88,7 @@ def _mount_cs_comments_service(
 
 # Add the "templates" folder as a template root
 tutor_hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
-    pkg_resources.resource_filename("tutorforum", "templates")
+    str(importlib_resources.files("tutorforum") / "templates")
 )
 
 
@@ -177,7 +177,7 @@ tutor_hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
 # Load patches from files
 for path in glob(
     os.path.join(
-        pkg_resources.resource_filename("tutorforum", "patches"),
+        str(importlib_resources.files("tutorforum") / "patches"),
         "*",
     )
 ):
