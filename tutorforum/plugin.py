@@ -23,7 +23,8 @@ config = {
         "PORT": "4567",
         "API_KEY": "forumapikey",
         "REPOSITORY": "https://github.com/openedx/cs_comments_service.git",
-        "REPOSITORY_VERSION": "{{ OPENEDX_COMMON_VERSION }}",
+        # TEMP: after redwood.2 release replace with {{ OPENEDX_COMMON_VERSION }}
+        "REPOSITORY_VERSION": "open-release/redwood.master",
     },
 }
 
