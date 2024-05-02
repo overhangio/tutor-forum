@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/ruby/tags
-FROM docker.io/ruby:3.0.5-slim-bullseye
+FROM docker.io/ruby:3.3.1-slim-bullseye
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
@@ -16,9 +16,9 @@ RUN useradd --home-dir /app --create-home --shell /bin/bash --uid 1000 app
 USER app
 
 # Install rake and bundler
-ENV PATH=/app/.gem/ruby/3.0.4/bin:$PATH
-RUN gem install --user-install bundler --version 2.3.4
-RUN gem install --user-install rake --version 13.0.6
+ENV PATH=/app/.gem/ruby/3.3.1/bin:$PATH
+RUN gem install --user-install bundler --version 2.3.26
+RUN gem install --user-install rake --version 13.1.0
 
 # Clone repo
 ARG FORUM_REPOSITORY={{ FORUM_REPOSITORY }}
@@ -27,7 +27,6 @@ RUN git clone $FORUM_REPOSITORY --branch $FORUM_REPOSITORY_VERSION --depth 1 /ap
 
 # Install ruby requirements
 WORKDIR /app/cs_comments_service
-ENV BUNDLE_GEMFILE=Gemfile3
 RUN bundle config set --local deployment 'true'
 RUN bundle install
 
