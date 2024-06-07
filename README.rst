@@ -28,6 +28,7 @@ Configuration
 - ``FORUM_MONGODB_DATABASE`` (default: ``"cs_comments_service"``)
 - ``FORUM_PORT`` (default: ``"4567""``)
 - ``FORUM_API_KEY`` (default: ``"forumapikey"``)
+- ``FORUM_ELASTICSEARCH_CA_PATH`` (default: ``""``)
 - ``FORUM_MONGODB_USE_SSL``: (default: ``False``)
 - ``FORUM_MONGODB_AUTH_SOURCE``: (default: ``""``)
 - ``FORUM_MONGODB_AUTH_MECH``: (default: ``""``)
@@ -66,6 +67,15 @@ While the newer `mongodb+srv:// <https://www.mongodb.com/developer/products/mong
 
 - Query parameters in the URL will be ignored by the forum. Please use the provided configuration options instead.
 - The username and password should form part of the URL in the format `mongodb+srv://username:password@host/`.
+
+Setting self-signed SSL certificates for Elasticsearch
+------------------------------------------------------
+
+It is possible to ensure the data in transit is encrypted using self-signed SSL, by configuring a certificate authority. To do so:
+
+- set the `FORUM_ELASTICSEARCH_CA_PATH` in the instance config (for example: ``/usr/local/certs/ca.cert``)
+- rebuild the image
+- mount the certificate to the expected location (for example, under the ``/usr/local/certs`` directory)
 
 Debugging
 ---------
