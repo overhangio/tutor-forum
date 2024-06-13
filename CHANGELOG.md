@@ -19,6 +19,11 @@ instructions, because git commits are used to generate release notes:
 
 <!-- scriv-insert-here -->
 
+<a id='changelog-17.0.1'></a>
+## v17.0.1 (2024-06-13)
+
+- [Bugfix] Make plugin compatible with Python 3.12 by removing dependency on `pkg_resources`. (by @regisb)
+
 <a id='changelog-17.0.0'></a>
 ## v17.0.0 (2023-12-09)
 
