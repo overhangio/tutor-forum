@@ -16,7 +16,7 @@ RUN useradd --home-dir /app --create-home --shell /bin/bash --uid 1000 app
 USER app
 
 # Install rake and bundler
-ENV PATH "/app/.gem/ruby/3.0.4/bin:$PATH"
+ENV PATH=/app/.gem/ruby/3.0.4/bin:$PATH
 RUN gem install --user-install bundler --version 2.3.4
 RUN gem install --user-install rake --version 13.0.6
 
@@ -27,7 +27,7 @@ RUN git clone $FORUM_REPOSITORY --branch $FORUM_REPOSITORY_VERSION --depth 1 /ap
 
 # Install ruby requirements
 WORKDIR /app/cs_comments_service
-ENV BUNDLE_GEMFILE Gemfile3
+ENV BUNDLE_GEMFILE=Gemfile3
 RUN bundle config set --local deployment 'true'
 RUN bundle install
 
@@ -36,13 +36,13 @@ COPY --chown=app:app ./bin/docker-entrypoint.sh /app/bin/docker-entrypoint.sh
 RUN chmod a+x /app/bin/docker-entrypoint.sh
 ENTRYPOINT ["/app/bin/docker-entrypoint.sh"]
 
-ENV SINATRA_ENV staging
-ENV NEW_RELIC_ENABLE false
-ENV API_KEY forumapikey
-ENV SEARCH_SERVER "http://elasticsearch:9200"
-ENV MONGODB_AUTH ""
-ENV MONGODB_HOST "mongodb"
-ENV MONGODB_PORT "27017"
-ENV MONGODB_DATABASE "cs_comments_service"
+ENV SINATRA_ENV=staging
+ENV NEW_RELIC_ENABLE=false
+ENV API_KEY=forumapikey
+ENV SEARCH_SERVER=http://elasticsearch:9200
+ENV MONGODB_AUTH=""
+ENV MONGODB_HOST=mongodb
+ENV MONGODB_PORT=27017
+ENV MONGODB_DATABASE=cs_comments_service
 EXPOSE 4567
 CMD ./bin/unicorn -c config/unicorn_tcp.rb -I '.'
