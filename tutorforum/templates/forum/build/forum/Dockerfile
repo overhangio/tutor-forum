@@ -8,10 +8,6 @@ RUN apt update && \
   apt upgrade -y && \
   apt install -y wget curl autoconf bison build-essential libffi-dev libgdbm-dev libncurses5-dev libssl-dev libyaml-dev libreadline6-dev zlib1g-dev git
 
-# Install dockerize to wait for mongodb/elasticsearch availability
-# https://hub.docker.com/r/powerman/dockerize/tags
-COPY --from=docker.io/powerman/dockerize:0.19.0 /usr/local/bin/dockerize /usr/local/bin/dockerize
-
 # Create unprivileged "app" user
 # From then on, run as unprivileged app user
 RUN useradd --home-dir /app --create-home --shell /bin/bash --uid 1000 app
@@ -42,18 +38,16 @@ WORKDIR /app/cs_comments_service
 RUN bundle config set --local deployment 'true'
 RUN bundle install
 
-# Copy entrypoint
-COPY --chown=app:app ./bin/docker-entrypoint.sh /app/bin/docker-entrypoint.sh
-RUN chmod a+x /app/bin/docker-entrypoint.sh
-ENTRYPOINT ["/app/bin/docker-entrypoint.sh"]
-
 ENV SINATRA_ENV=staging
 ENV NEW_RELIC_ENABLE=false
 ENV API_KEY=forumapikey
-ENV SEARCH_SERVER=http://elasticsearch:9200
+ENV SEARCH_SERVER_ES7=http://elasticsearch:9200
 ENV MONGODB_AUTH=""
 ENV MONGODB_HOST=mongodb
 ENV MONGODB_PORT=27017
 ENV MONGODB_DATABASE=cs_comments_service
+# Duplicating the function of dockerize
+ENV MONGOID_CONNECT_TIMEOUT=600
+
 EXPOSE 4567
 CMD ./bin/unicorn -c config/unicorn_tcp.rb -I '.'
