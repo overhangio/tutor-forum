@@ -31,7 +31,6 @@ ENV BUNDLE_GEMFILE=Gemfile3
 RUN bundle config set --local deployment 'true'
 RUN bundle install
 
-# Copy entrypoint
 COPY --chown=app:app ./bin/docker-entrypoint.sh /app/bin/docker-entrypoint.sh
 RUN chmod a+x /app/bin/docker-entrypoint.sh
 ENTRYPOINT ["/app/bin/docker-entrypoint.sh"]
@@ -39,10 +38,13 @@ ENTRYPOINT ["/app/bin/docker-entrypoint.sh"]
 ENV SINATRA_ENV=staging
 ENV NEW_RELIC_ENABLE=false
 ENV API_KEY=forumapikey
-ENV SEARCH_SERVER=http://elasticsearch:9200
+ENV SEARCH_SERVER_ES7=http://elasticsearch:9200
 ENV MONGODB_AUTH=""
 ENV MONGODB_HOST=mongodb
 ENV MONGODB_PORT=27017
 ENV MONGODB_DATABASE=cs_comments_service
+# Duplicating the function of dockerize
+ENV MONGOID_TIMEOUT=600
+
 EXPOSE 4567
 CMD ./bin/unicorn -c config/unicorn_tcp.rb -I '.'
