@@ -14,6 +14,6 @@ else
     WAIT_MONGODB="-wait tcp://$MONGODB_HOST:$MONGODB_PORT"
 fi
 
-dockerize $WAIT_MONGODB -wait $SEARCH_SERVER -wait-retry-interval 5s -timeout 600s
+dockerize $WAIT_MONGODB -wait $SEARCH_SERVER -wait-retry-interval 5s -timeout 600s -skip-tls-verify
 
 exec "$@"
