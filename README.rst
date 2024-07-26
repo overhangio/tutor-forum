@@ -65,7 +65,7 @@ It is possible to use templates when setting the above values.
 
 
 Caveats for the ``mongodb+srv://`` syntax
----------------------------------------
+-----------------------------------------
 
 While the newer `mongodb+srv:// <https://www.mongodb.com/developer/products/mongodb/srv-connection-strings/>`__ syntax
 for the ``MONGODB_HOST`` is supported, there are some tradeoffs:
