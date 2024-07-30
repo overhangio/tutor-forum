@@ -81,13 +81,13 @@ To debug the comments service, you are encouraged to mount the ``cs_comments_ser
 .. code-block:: bash
 
     tutor mounts add /path/to/cs_comments_service
-    tutor dev start
+    tutor dev launch
 
-Once a local repository is mounted in the image, you will have to install all `gems`_ (ruby dependencies):
+If the list of dependencies ``Gemfile`` are modified, it is necessary to re-install all `gems`_ (ruby dependencies):
 
 .. code-block:: bash
 
-    bundle install
+    tutor dev run forum bundle install
 
 .. _gems: https://guides.rubygems.org/what-is-a-gem/
 
