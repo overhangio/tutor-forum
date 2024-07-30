@@ -69,6 +69,7 @@ tutor_hooks.Filters.IMAGES_PUSH.add_item(
 )
 
 
+# Bind-mount repo at runtime
 @tutor_hooks.Filters.COMPOSE_MOUNTS.add()
 def _mount_cs_comments_service(
     volumes: list[tuple[str, str]], name: str
@@ -78,12 +79,23 @@ def _mount_cs_comments_service(
     bind-mount the host repo in the forum container.
     """
     if name == "cs_comments_service":
-        path = "/app/cs_comments_service"
+        repo_path = "/app/cs_comments_service"
         volumes += [
-            ("forum", path),
-            ("forum-job", path),
+            ("forum", repo_path),
+            ("forum-job", repo_path),
         ]
     return volumes
+
+
+# Bind-mount repo at build-time
+@tutor_hooks.Filters.IMAGES_BUILD_MOUNTS.add()
+def _mount_forum_on_build(
+    mounts: list[tuple[str, str]], host_path: str
+) -> list[tuple[str, str]]:
+    path_basename = os.path.basename(host_path)
+    if path_basename == "cs_comments_service":
+        mounts.append(("forum", "forum-src"))
+    return mounts
 
 
 # Add the "templates" folder as a template root
