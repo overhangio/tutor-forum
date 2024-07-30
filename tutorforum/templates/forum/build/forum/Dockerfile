@@ -1,10 +1,12 @@
+# syntax=docker/dockerfile:1
+########## Base image
 # https://hub.docker.com/_/ruby/tags
-FROM docker.io/ruby:3.3.1-slim-bullseye
+FROM docker.io/ruby:3.3.1-slim-bullseye as base
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
   apt upgrade -y && \
-  apt install -y git wget curl autoconf bison build-essential libffi-dev libgdbm-dev libncurses5-dev libssl-dev libyaml-dev libreadline6-dev zlib1g-dev
+  apt install -y wget curl autoconf bison build-essential libffi-dev libgdbm-dev libncurses5-dev libssl-dev libyaml-dev libreadline6-dev zlib1g-dev git
 
 # Install dockerize to wait for mongodb/elasticsearch availability
 # https://hub.docker.com/r/powerman/dockerize/tags
@@ -20,10 +22,20 @@ ENV PATH=/app/.gem/ruby/3.3.1/bin:$PATH
 RUN gem install --user-install bundler --version 2.3.26
 RUN gem install --user-install rake --version 13.1.0
 
-# Clone repo
+########## Clone repo
+FROM base AS forum-git
 ARG FORUM_REPOSITORY={{ FORUM_REPOSITORY }}
 ARG FORUM_REPOSITORY_VERSION={{ FORUM_REPOSITORY_VERSION }}
-RUN git clone $FORUM_REPOSITORY --branch $FORUM_REPOSITORY_VERSION --depth 1 /app/cs_comments_service
+ADD --keep-git-dir=true $FORUM_REPOSITORY#$FORUM_REPOSITORY_VERSION /app/cs_comments_service
+
+########## Empty layer with just the repo at the root.
+# This is useful when overriding the build context with a host repo:
+FROM scratch AS forum-src
+COPY --from=forum-git /app/cs_comments_service /
+
+########## Production image
+FROM base AS production
+COPY --link --chown=1000:1000 --from=forum-src / /app/cs_comments_service
 
 # Install ruby requirements
 WORKDIR /app/cs_comments_service
