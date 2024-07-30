@@ -78,10 +78,10 @@ def _mount_cs_comments_service(
     bind-mount the host repo in the forum container.
     """
     if name == "cs_comments_service":
-        path = "/app/cs_comments_service"
+        repo_path = "/app/cs_comments_service"
         volumes += [
-            ("forum", path),
-            ("forum-job", path),
+            ("forum", repo_path),
+            ("forum-job", repo_path),
         ]
     return volumes
 
