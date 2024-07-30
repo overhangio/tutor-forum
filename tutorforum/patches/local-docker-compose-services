@@ -2,5 +2,9 @@ forum:
   image: {{ FORUM_DOCKER_IMAGE }}
   environment:
     {{ patch("forum-local-env")|indent(4) }}
+  volumes:
+    {%- for mount in iter_mounts(MOUNTS, "forum") %}
+    - {{ mount }}
+    {%- endfor %}
   restart: unless-stopped
   depends_on: {{ [("elasticsearch", RUN_ELASTICSEARCH), ("mongodb", RUN_MONGODB)]|list_if }}
