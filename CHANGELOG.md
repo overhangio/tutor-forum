@@ -19,6 +19,13 @@ instructions, because git commits are used to generate release notes:
 
 <!-- scriv-insert-here -->
 
+<a id='changelog-18.1.0'></a>
+## v18.1.0 (2024-08-21)
+
+- 💥[Feature] upgrade to Ruby 3.3 (by @ghassanmas).
+
+- [Bugfix] Fix mounting `cs_comments_service` repository at build- and runtime. (by @regisb)
+
 <a id='changelog-18.0.1'></a>
 ## v18.0.1 (2024-07-26)
 
