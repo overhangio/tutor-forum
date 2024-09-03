@@ -19,6 +19,11 @@ instructions, because git commits are used to generate release notes:
 
 <!-- scriv-insert-here -->
 
+<a id='changelog-18.1.1'></a>
+## v18.1.1 (2024-09-03)
+
+- [Bugfix] Fix when cs_comments_service src is not mounted
+
 <a id='changelog-18.1.0'></a>
 ## v18.1.0 (2024-08-21)
 
