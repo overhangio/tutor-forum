@@ -34,7 +34,7 @@ setup(
         "Community": "https://discuss.openedx.org",
     },
     license="AGPLv3",
-    author="Overhang.IO",
+    author="Edly",
     maintainer="abstract-technology.de",
     maintainer_email="g.maslamani@abstract-technology.de",
     description="forum plugin for Tutor",
