@@ -29,13 +29,14 @@ config = {
 
 FORUM_ENV_BASE: dict[str, str] = {
     "SEARCH_SERVER": "{{ ELASTICSEARCH_SCHEME }}://{{ ELASTICSEARCH_HOST }}:{{ ELASTICSEARCH_PORT }}",
-    "MONGODB_AUTH": "{% if MONGODB_USERNAME and MONGODB_PASSWORD %}{{ MONGODB_USERNAME}}:{{ MONGODB_PASSWORD }}@{% endif %}",
+    "MONGODB_AUTH": "{{ get_mongo_auth(MONGODB_USERNAME, MONGODB_PASSWORD) }}",
     "MONGODB_HOST": "{{ MONGODB_HOST|forum_mongodb_host }}",
     "MONGODB_PORT": "{{ MONGODB_PORT }}",
     "MONGODB_DATABASE": "{{ FORUM_MONGODB_DATABASE }}",
     "MONGOID_AUTH_SOURCE": "{{ MONGODB_AUTH_SOURCE }}",
     "MONGOID_AUTH_MECH": "{{ MONGODB_AUTH_MECHANISM|auth_mech_as_ruby }}",
     "MONGOID_USE_SSL": "{{ 'true' if MONGODB_USE_SSL else 'false' }}",
+    "MONGOHQ_URL": "{{ get_mongohq_url(MONGODB_HOST, MONGODB_PORT,MONGODB_DATABASE, get_mongo_auth(MONGODB_USERNAME, MONGODB_PASSWORD)) }}",
 }
 
 with open(
@@ -66,6 +67,29 @@ tutor_hooks.Filters.IMAGES_PUSH.add_item(
         "forum",
         "{{ FORUM_DOCKER_IMAGE }}",
     )
+)
+
+
+def get_mongohq_url(
+    mongo_host: str, mongo_port: str, mongo_database: str, mongo_auth: str
+) -> str:
+    """
+    Used to return mongo, to handle the special case when mongodb+srv used
+    For more info look at the following PR https://github.com/overhangio/tutor-forum/pull/10
+    """
+    if "mongodb+srv" in mongo_host:
+        return f"{mongo_host}/{mongo_database}"
+    return f"{mongo_auth}{mongo_host}:{mongo_port}/{mongo_database}"
+
+
+def get_mongo_auth(monogo_username: str, mongo_password: str) -> str:
+    if monogo_username and mongo_password:
+        return f"{monogo_username}:{mongo_password}@"
+    return ""
+
+
+tutor_hooks.Filters.ENV_TEMPLATE_VARIABLES.add_items(
+    [("get_mongohq_url", get_mongohq_url), ("get_mongo_auth", get_mongo_auth)]
 )
 
 
