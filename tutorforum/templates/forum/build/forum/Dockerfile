@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 ########## Base image
 # https://hub.docker.com/_/ruby/tags
-FROM docker.io/ruby:3.3.1-slim-bullseye as base
+FROM docker.io/ruby:3.3.5-slim-bookworm AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && \
@@ -14,7 +14,7 @@ RUN useradd --home-dir /app --create-home --shell /bin/bash --uid 1000 app
 USER app
 
 # Install rake and bundler
-ENV PATH=/app/.gem/ruby/3.3.1/bin:$PATH
+ENV PATH=/app/.gem/ruby/3.3.5/bin:$PATH
 RUN gem install --user-install bundler --version 2.3.26
 RUN gem install --user-install rake --version 13.1.0
 
