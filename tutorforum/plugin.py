@@ -28,7 +28,7 @@ tutor_hooks.Filters.ENV_PATCHES.add_items(
             """
 RUN git remote add edly https://github.com/edly-io/edx-platform \
     && git fetch edly edly/forumv2 \
-    && git merge edly/edly/forumv2""",
+    && git merge --allow-unrelated-histories edly/edly/forumv2""",
         ),
         # Enable forum feature
         (
