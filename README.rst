@@ -102,4 +102,6 @@ from the Tutor documentation.
 License
 -------
 
-This software is licensed under the terms of the `AGPLv3 <https://www.gnu.org/licenses/agpl-3.0.en.html>`__.
+This work is licensed under the terms of the `GNU Affero General Public License (AGPL)`_.
+
+.. _GNU Affero General Public License (AGPL): https://github.com/overhangio/tutor-forum/blob/release/LICENSE.txt
