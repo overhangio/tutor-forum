@@ -11,7 +11,7 @@ from tutor.__about__ import __version_suffix__
 from .__about__ import __version__
 from .hooks import FORUM_ENV
 
-# Handle version suffix in nightly mode, just like tutor core
+# Handle version suffix in main mode, just like tutor core
 if __version_suffix__:
     __version__ += "-" + __version_suffix__
 
