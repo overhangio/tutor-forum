@@ -1,8 +1,0 @@
-# Install dependencies in case repository was bind-mounted
-if [ ! -e vendor/bundle/ruby ]; then
-    echo "Installing dependencies in bind-mounted repository..."
-    bundle install
-fi
-
-bundle exec rake search:initialize
-bundle exec rake search:rebuild_indices

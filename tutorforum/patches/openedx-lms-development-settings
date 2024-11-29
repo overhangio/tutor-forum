@@ -1,1 +1,0 @@
-COMMENTS_SERVICE_URL = "http://forum:{{ FORUM_PORT }}"
