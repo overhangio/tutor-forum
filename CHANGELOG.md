@@ -19,6 +19,21 @@ instructions, because git commits are used to generate release notes:
 
 <!-- scriv-insert-here -->
 
+<a id='changelog-19.0.0'></a>
+## v19.0.0 (2024-12-09)
+
+- [Improvement] get rid of of `dockerize`. (by @ghassanmas)
+
+- 💥[Feature] Switch from the legacy `cs_comments_service` Ruby app to the new forum v2 Python app. In addition, forum data is now stored in MySQL, and not in MongoDb. This considerably simplifies this plugin. Change should be transparent for most users, unless the forum backend has been customised in some way. This is considered a breaking change because the legacy forum will no longer be supported by this plugin. Users who want to keep running `cs_comments_service` will have to create their own plugin. (by @regisb)
+
+- 💥[Feature] Upgrade to Sumac (by @ghassanmas)
+
+- 💥 [Deprecation] Drop support for python 3.8 and set Python 3.9 as the minimum supported python version. (by @DawoudSheraz)
+
+- 💥[Improvement] Rename Tutor's two branches (by @DawoudSheraz):
+  * Rename **master** to **release**, as this branch runs the latest official Open edX release tag.
+  * Rename **nightly** to **main**, as this branch runs the Open edX master branches, which are the basis for the next Open edX release.
+
 <a id='changelog-18.1.1'></a>
 ## v18.1.1 (2024-09-03)
 
