@@ -25,6 +25,25 @@ tutor_hooks.Filters.ENV_PATCHES.add_item(
         """# Forum configuration
 FORUM_SEARCH_BACKEND = "forum.search.meilisearch.MeilisearchBackend"
 FEATURES["ENABLE_DISCUSSION_SERVICE"] = True
+# Forum mongodb configuration, for existing platforms still running mongodb
+FORUM_MONGODB_DATABASE = "cs_comments_service"
+FORUM_MONGODB_CLIENT_PARAMETERS = {
+    "host": "{{ MONGODB_HOST }}",
+    "port": {{ MONGODB_PORT }},
+    "username": {% if MONGODB_USERNAME %}"{{ MONGODB_USERNAME }}"{% else %}None{% endif %},
+    "password": {% if MONGODB_PASSWORD %}"{{ MONGODB_PASSWORD }}"{% else %}None{% endif %},
+    "ssl": {{ MONGODB_USE_SSL }},
+}
+{}
+{% if MONGODB_AUTH_MECHANISM %}
+FORUM_MONGODB_CLIENT_PARAMETERS["authMechanism"] = "{{ MONGODB_AUTH_MECHANISM }}"
+{% endif %}
+{% if MONGODB_AUTH_SOURCE %}
+FORUM_MONGODB_CLIENT_PARAMETERS["authSource"] = "{{ MONGODB_AUTH_SOURCE }}"
+{% endif %}
+{% if MONGODB_REPLICA_SET %}
+FORUM_MONGODB_CLIENT_PARAMETERS["replicaSet"] = "{{ MONGODB_REPLICA_SET }}"
+{% endif %}
 """,
     )
 )
