@@ -18,6 +18,37 @@ Installation
 
     tutor plugins install forum
 
+Upgrading from Redwood (v18)
+****************************
+
+In the Sumac release, this plugin was updated to run the new `openedx/forum <https://github.com/openedx/forum>`__ Python application ("v2") instead of the legacy `cs_comments_service <https://github.com/openedx/cs_comments_service>`__ Ruby application ("v1"). See this `deprecation announcement <https://github.com/openedx/cs_comments_service/issues/437>`__ for more information.
+
+For data storage, forum v2 can use either MongoDB or MySQL as a data storage backend:
+
+* New users running Open edX for the first time in Sumac (Tutor v19) will default to the MySQL backend.
+* Existing platforms running Redwood or earlier (Tutor < v19) will keep using the MongoDB backend by default.
+
+If you are running an existing platform, you are strongly encouraged to migrate to the new MySQL backend, as the MongoDB backend will disappear in Teak. To do so, you should start by migrating your data::
+
+    tutor local run lms ./manage.py lms forum_migrate_course_from_mongodb_to_mysql --no-toggle all
+
+This command is non-destructive for your data, and can be run multiple times with the same outcome. Once the data migration is successful, you should enable the ``forum_v2.enable_mysql_backend`` global course waffle flag::
+
+    ./manage.py lms waffle_flag --create --everyone forum_v2.enable_mysql_backend
+
+The forum will then make use of data stored in MySQL instead of MongoDB. Once you are sufficiently confident that the MongoDB data is no longer necessary, you may delete it with::
+
+    ./manage.py lms forum_delete_course_from_mongodb all
+
+For a more progressive transition, you may decide to migrate data for a single course::
+
+    # removing the no-toggle option will automatically create the course waffle flag just for this course
+    tutor local run lms ./manage.py lms forum_migrate_course_from_mongodb_to_mysql <course ID>
+    # deleting data is optional and should be done only if you are confident that the migration was successful
+    ./manage.py lms forum_delete_course_from_mongodb <course ID>
+
+For more information, check out the `documentation <https://github.com/openedx/forum>`__ of the forum application.
+
 Usage
 -----
 
@@ -26,70 +57,15 @@ Usage
     tutor plugins enable forum
     tutor dev|local|k8s launch
 
-Configuration
--------------
-
-- ``FORUM_DOCKER_IMAGE`` (default: ``""{{ DOCKER_REGISTRY }}overhangio/openedx-forum:{{ FORUM_VERSION }}"``)
-- ``FORUM_MONGODB_DATABASE`` (default: ``"cs_comments_service"``)
-- ``FORUM_PORT`` (default: ``"4567""``)
-- ``FORUM_API_KEY`` (default: ``"forumapikey"``)
-- ``FORUM_MONGODB_USE_SSL``: (default: ``False``)
-- ``FORUM_MONGODB_AUTH_SOURCE``: (default: ``""``)
-- ``FORUM_MONGODB_AUTH_MECH``: (default: ``""``)
-- ``FORUM_REPOSITORY`` (default: ``"https://github.com/openedx/cs_comments_service.git"``)
-- ``FORUM_REPOSITORY_VERSION`` (default: ``"{{ OPENEDX_COMMON_VERSION }}"``)
-
-Customising Environment Variables
----------------------------------
-
-To add, or modify environment variables that are supplied to the forum service,
-you can use the ``FORUM_ENV`` hook.
-
-To add or modify an environment variable, update the corresponding entry in the
-``FORUM_ENV`` dictionary as follows:
-
-.. code-block:: python
-
-    from tutorforum.hooks import FORUM_ENV
-
-    @FORUM_ENV.add()
-    def _add_forum_env_vars(env_vars):
-        env_vars.update({ "NEW_ENV_VAR": "VALUE" })
-        return env_vars
-
-If the environment variable already exists, it will be overridden, otherwise it
-will be added. Note that if multiple plugins override the same value, the last
-override will apply.
-
-It is possible to use templates when setting the above values.
-
-
-Caveats for the ``mongodb+srv://`` syntax
------------------------------------------
-
-While the newer `mongodb+srv:// <https://www.mongodb.com/developer/products/mongodb/srv-connection-strings/>`__ syntax
-for the ``MONGODB_HOST`` is supported, there are some tradeoffs:
-
-- Query parameters in the URL will be ignored by the forum. Please use the provided configuration options instead.
-- The username and password should form part of the URL in the format ``mongodb+srv://username:password@host/``.
-
 Debugging
 ---------
 
-To debug the comments service, you are encouraged to mount the ``cs_comments_service`` repo from the host in the development container:
+To debug the forum application, you are encouraged to mount the ``forum`` repository from the host in the development container:
 
 .. code-block:: bash
 
-    tutor mounts add /path/to/cs_comments_service
+    tutor mounts add /path/to/forum
     tutor dev launch
-
-If the list of dependencies ``Gemfile`` are modified, it is necessary to re-install all `gems`_ (ruby dependencies):
-
-.. code-block:: bash
-
-    tutor dev run forum bundle install
-
-.. _gems: https://guides.rubygems.org/what-is-a-gem/
 
 Troubleshooting
 ---------------
