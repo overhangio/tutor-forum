@@ -30,8 +30,8 @@ FORUM_MONGODB_DATABASE = "cs_comments_service"
 FORUM_MONGODB_CLIENT_PARAMETERS = {
     "host": "{{ MONGODB_HOST }}",
     "port": {{ MONGODB_PORT }},
-    "username": {% if MONGODB_USERNAME %}"{{ MONGODB_USERNAME }}"{% else %}None{% endif %},
-    "password": {% if MONGODB_PASSWORD %}"{{ MONGODB_PASSWORD }}"{% else %}None{% endif %},
+    {% if MONGODB_USERNAME %}"username": "{{ MONGODB_USERNAME }}",{% endif %}
+    {% if MONGODB_PASSWORD %}"password": "{{ MONGODB_PASSWORD }}",{% endif %}
     "ssl": {{ MONGODB_USE_SSL }},
 }
 {}

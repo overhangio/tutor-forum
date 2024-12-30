@@ -1,0 +1,1 @@
+- [Budfix] Fix crashing of LMS init job due to `FORUM_MONGODB_CLIENT_PARAMETERS` containing username/password with `None` values. (by @kaustavb12)
