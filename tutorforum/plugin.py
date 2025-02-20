@@ -12,6 +12,7 @@ if __version_suffix__:
 config = {
     "defaults": {
         "VERSION": __version__,
+        "MONGODB_DATABASE": "cs_comments_service",
     },
 }
 
@@ -26,7 +27,7 @@ tutor_hooks.Filters.ENV_PATCHES.add_item(
 FORUM_SEARCH_BACKEND = "forum.search.meilisearch.MeilisearchBackend"
 FEATURES["ENABLE_DISCUSSION_SERVICE"] = True
 # Forum mongodb configuration, for existing platforms still running mongodb
-FORUM_MONGODB_DATABASE = "cs_comments_service"
+FORUM_MONGODB_DATABASE = "{{ FORUM_MONGODB_DATABASE }}"
 FORUM_MONGODB_CLIENT_PARAMETERS = {
     "host": "{{ MONGODB_HOST }}",
     "port": {{ MONGODB_PORT }},
