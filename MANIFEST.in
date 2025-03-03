@@ -1,2 +1,0 @@
-recursive-include tutorforum/patches *
-recursive-include tutorforum/templates *
