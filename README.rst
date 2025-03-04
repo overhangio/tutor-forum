@@ -34,18 +34,18 @@ If you are running an existing platform, you are strongly encouraged to migrate 
 
 This command is non-destructive for your data, and can be run multiple times with the same outcome. Once the data migration is successful, you should enable the ``forum_v2.enable_mysql_backend`` global course waffle flag::
 
-    ./manage.py lms waffle_flag --create --everyone forum_v2.enable_mysql_backend
+    tutor local run lms ./manage.py lms waffle_flag --create --everyone forum_v2.enable_mysql_backend
 
 The forum will then make use of data stored in MySQL instead of MongoDB. Once you are sufficiently confident that the MongoDB data is no longer necessary, you may delete it with::
 
-    ./manage.py lms forum_delete_course_from_mongodb all
+    tutor local run lms ./manage.py lms forum_delete_course_from_mongodb all
 
 For a more progressive transition, you may decide to migrate data for a single course::
 
     # removing the no-toggle option will automatically create the course waffle flag just for this course
     tutor local run lms ./manage.py lms forum_migrate_course_from_mongodb_to_mysql <course ID>
     # deleting data is optional and should be done only if you are confident that the migration was successful
-    ./manage.py lms forum_delete_course_from_mongodb <course ID>
+    tutor local run lms ./manage.py lms forum_delete_course_from_mongodb <course ID>
 
 For more information, check out the `documentation <https://github.com/openedx/forum>`__ of the forum application.
 
