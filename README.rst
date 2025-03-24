@@ -49,24 +49,24 @@ For a more progressive transition, you may decide to migrate data for a single c
 
 For more information, check out the `documentation <https://github.com/openedx/forum>`__ of the forum application.
 
-Note
-^^^^
-As part of Sumac major release, the following MongoDB related configurations were removed from tutor-forum.
+Breaking Changes
+^^^^^^^^^^^^^^^^
+As part of Sumac major release, the following MongoDB related configurations were removed from tutor-forum:
 
-* FORUM_MONGODB_DATABASE (default: "cs_comments_service")
-* FORUM_MONGODB_USE_SSL: (default: False)
+* FORUM_MONGODB_DATABASE (default: ``cs_comments_service``)
+* FORUM_MONGODB_USE_SSL: (default: ``False``)
 * FORUM_MONGODB_AUTH_SOURCE: (default: "")
 * FORUM_MONGODB_AUTH_MECH: (default: "")
 
-Apart from the above, the other non-mongodb related parameters were also deprecated:
+Following other non-mongodb parameters were also deprecated:
 
 * FORUM_PORT
 * FORUM_API_KEY
 * FORUM_REPOSITORY
 * FORUM_REPOSITORY_VERSION
 
-These configurable parameters were deprecated as part of sumac upgrade where forum v2 was made default in tutor-forum.
-If an operator is still running forum v1 and has not upgraded to v2 yet, they won't be able to customize these values with ``tutor config save --set``. To be able to customize the deprecated mongo params, **openedx-common-settings** patch should be used. See below for an example using this patch in a custom plugin
+These configurable parameters were deprecated in sumac upgrade where `openedx forum <https://github.com/openedx/forum>`_ was made default in tutor-forum.
+If an operator is still running forum cs_comments_service and has not upgraded to openedx forum yet, they will not be able to customize these values with ``tutor config save --set``. To customize the deprecated mongo params, **openedx-common-settings** patch should be used. See below for an example using this patch in a custom plugin
 
 .. code-block:: python
 
