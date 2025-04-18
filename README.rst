@@ -51,22 +51,19 @@ For more information, check out the `documentation <https://github.com/openedx/f
 
 Breaking Changes
 ^^^^^^^^^^^^^^^^
-As part of Sumac major release, the following MongoDB related configurations were removed from tutor-forum:
+As part of the Sumac major release, the following MongoDB-related configuration were removed from this plugin:
 
 * FORUM_MONGODB_DATABASE (default: ``cs_comments_service``)
-* FORUM_MONGODB_USE_SSL: (default: ``False``)
-* FORUM_MONGODB_AUTH_SOURCE: (default: "")
-* FORUM_MONGODB_AUTH_MECH: (default: "")
+* FORUM_MONGODB_USE_SSL (default: ``False``)
+* FORUM_MONGODB_AUTH_SOURCE (default: ``""``)
+* FORUM_MONGODB_AUTH_MECH (default: ``""``)
+* FORUM_PORT (default: ``"4567"``)
+* FORUM_API_KEY (default: ``"forumapikey"``)
+* FORUM_REPOSITORY (default: ``https://github.com/openedx/cs_comments_service.git``)
+* FORUM_REPOSITORY_VERSION (default: ``{{ OPENEDX_COMMON_VERSION }}``)
 
-Following other non-mongodb parameters were also deprecated:
-
-* FORUM_PORT
-* FORUM_API_KEY
-* FORUM_REPOSITORY
-* FORUM_REPOSITORY_VERSION
-
-These configurable parameters were deprecated in sumac upgrade where `openedx forum <https://github.com/openedx/forum>`_ was made default in tutor-forum.
-If an operator is still running forum cs_comments_service and has not upgraded to openedx forum yet, they will not be able to customize these values with ``tutor config save --set``. To customize the deprecated mongo params, **openedx-common-settings** patch should be used. See below for an example using this patch in a custom plugin
+These configurable parameters were deprecated in sumac upgrade when `openedx forum <https://github.com/openedx/forum>`_ was made default in tutor-forum.
+Prior to v19 sumac release, if an operator using this plugin had customized the above listed configurations, they will not be able to customize these values with ``tutor config save --set`` after v19 sumac release. To customize the deprecated mongo params, **openedx-common-settings** patch should be used. See below for an example using this patch in a custom plugin
 
 .. code-block:: python
 
