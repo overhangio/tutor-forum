@@ -49,6 +49,33 @@ For a more progressive transition, you may decide to migrate data for a single c
 
 For more information, check out the `documentation <https://github.com/openedx/forum>`__ of the forum application.
 
+Breaking Changes
+^^^^^^^^^^^^^^^^
+As part of the Sumac major release, the following MongoDB-related configuration were removed from this plugin:
+
+* FORUM_MONGODB_DATABASE (default: ``cs_comments_service``)
+* FORUM_MONGODB_USE_SSL (default: ``False``)
+* FORUM_MONGODB_AUTH_SOURCE (default: ``""``)
+* FORUM_MONGODB_AUTH_MECH (default: ``""``)
+* FORUM_PORT (default: ``"4567"``)
+* FORUM_API_KEY (default: ``"forumapikey"``)
+* FORUM_REPOSITORY (default: ``https://github.com/openedx/cs_comments_service.git``)
+* FORUM_REPOSITORY_VERSION (default: ``{{ OPENEDX_COMMON_VERSION }}``)
+
+These configurable parameters were deprecated in sumac upgrade when `openedx forum <https://github.com/openedx/forum>`_ was made default in tutor-forum.
+Prior to v19 sumac release, if an operator using this plugin had customized the above listed configurations, they will not be able to customize these values with ``tutor config save --set`` after v19 sumac release. To customize the deprecated mongo params, **openedx-common-settings** patch should be used. See below for an example using this patch in a custom plugin:
+
+.. code-block:: python
+
+  tutor_hooks.Filters.ENV_PATCHES.add_item(
+    (
+        "openedx-common-settings",  """
+           FORUM_MONGODB_DATABASE = 'your_custom_name',
+     """
+    )
+  )
+
+
 Usage
 -----
 
