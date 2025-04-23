@@ -63,7 +63,7 @@ As part of the Sumac major release, the following MongoDB-related configuration 
 * FORUM_REPOSITORY_VERSION (default: ``{{ OPENEDX_COMMON_VERSION }}``)
 
 These configurable parameters were deprecated in sumac upgrade when `openedx forum <https://github.com/openedx/forum>`_ was made default in tutor-forum.
-Prior to v19 sumac release, if an operator using this plugin had customized the above listed configurations, they will not be able to customize these values with ``tutor config save --set`` after v19 sumac release. To customize the deprecated mongo params, **openedx-common-settings** patch should be used. See below for an example using this patch in a custom plugin
+Prior to v19 sumac release, if an operator using this plugin had customized the above listed configurations, they will not be able to customize these values with ``tutor config save --set`` after v19 sumac release. To customize the deprecated mongo params, **openedx-common-settings** patch should be used. See below for an example using this patch in a custom plugin:
 
 .. code-block:: python
 
