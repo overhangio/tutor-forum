@@ -9,8 +9,8 @@ authors = [
   { email = "hello@edly.io" }
 ]
 maintainers = [
-  { name = "abstract-technology.de" },
-  { email = "g.maslamani@abstract-technology.de" }
+  { name = "ghassan.blog" },
+  { email = "ghassan.maslamani@gmail.com" }
 ]
 description = "forum plugin for Tutor"
 readme = { file = "README.rst", content-type = "text/x-rst" }
