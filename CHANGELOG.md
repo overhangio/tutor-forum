@@ -19,6 +19,18 @@ instructions, because git commits are used to generate release notes:
 
 <!-- scriv-insert-here -->
 
+<a id='changelog-20.0.0'></a>
+## v20.0.0 (2025-06-05)
+
+- [Bugfix] Fix crashing of LMS init job due to `FORUM_MONGODB_CLIENT_PARAMETERS` containing username/password with `None` values. (by @kaustavb12)
+
+- [Improvement] Migrate packaging from setup.py/setuptools to pyproject.toml/hatch. (by rehmansheikh222)
+  - For more details view tutor core PR: https://github.com/overhangio/tutor/pull/1163
+
+- [Improvement] Add hatch_build.py in sdist target to fix the installation issues (by @dawoudsheraz)
+
+- 💥[Feature] Upgrade to Teak (by @dawoudsheraz)
+
 <a id='changelog-19.0.0'></a>
 ## v19.0.0 (2024-12-09)
 
