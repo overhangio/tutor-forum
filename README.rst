@@ -97,7 +97,7 @@ To debug the forum application, you are encouraged to mount the ``forum`` reposi
 Troubleshooting
 ---------------
 
-This Tutor plugin is maintained by Ghassan Maslamani (ghassan.maslamani@gmail.com).
+This Tutor plugin is maintained by Abdul-Muqadim (abdul.muqadim@arbisoft.com).
 Community support is available from the official `Open edX forum <https://discuss.openedx.org>`__.
 Do you need help with this plugin? See the `troubleshooting <https://docs.tutor.edly.io/troubleshooting.html>`__ section
 from the Tutor documentation.
