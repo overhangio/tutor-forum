@@ -77,7 +77,7 @@ else:
 
 # Create Mongodb indexes
 ./manage.py lms forum_create_mongodb_indexes
-""",
+""",  # noqa: E501
     )
 )
 
