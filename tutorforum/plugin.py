@@ -48,36 +48,13 @@ FORUM_MONGODB_CLIENT_PARAMETERS["replicaSet"] = "{{ MONGODB_REPLICA_SET }}"
     )
 )
 
-# Enable forum v2
+# Initialize forum indices
 tutor_hooks.Filters.CLI_DO_INIT_TASKS.add_item(
     (
         "lms",
         """
-(./manage.py lms waffle_flag --list | grep discussions.enable_forum_v2) || ./manage.py lms waffle_flag --create --everyone discussions.enable_forum_v2
-
-# Switch to MySQL backend, unless a global waffle flag was already created.
-# This allows user to stick to the MongoDb backend by creating a flag with:
-#
-#     ./manage.py lms waffle_flag --create --deactivate forum_v2.enable_mysql_backend
-#
-./manage.py lms shell -c "
-from waffle.models import Flag
-flag, created = Flag.objects.get_or_create(name='forum_v2.enable_mysql_backend')
-if created:
-    print('Configuring MySQL backend for forum data storage')
-    flag.everyone = True
-    flag.save()
-elif not flag.everyone:
-    print('⚠️ You should migrate your forum data to MySQL: https://github.com/overhangio/tutor-forum/#installation')
-else:
-    print('MySQL backend already configured for forum data storage')"
-
-# Initialize indices
 ./manage.py lms initialize_forum_indices
-
-# Create Mongodb indexes
-./manage.py lms forum_create_mongodb_indexes
-""",  # noqa: E501
+""",
     )
 )
 
