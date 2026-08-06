@@ -23,26 +23,18 @@ Upgrading from Redwood (v18)
 
 In the Sumac release, this plugin was updated to run the new `openedx/forum <https://github.com/openedx/forum>`__ Python application ("v2") instead of the legacy `cs_comments_service <https://github.com/openedx/cs_comments_service>`__ Ruby application ("v1"). See this `deprecation announcement <https://github.com/openedx/cs_comments_service/issues/437>`__ for more information.
 
-For data storage, forum v2 can use either MongoDB or MySQL as a data storage backend:
+In Sumac, forum v2 supported both MongoDB and MySQL as data storage backends. Starting with ``openedx/forum`` 0.4.3, the MongoDB backend was removed and MySQL is the only supported backend.
 
-* New users running Open edX for the first time in Sumac (Tutor v19) will default to the MySQL backend.
-* Existing platforms running Redwood or earlier (Tutor < v19) will keep using the MongoDB backend by default.
+If you are running an existing platform on the MongoDB backend, you must migrate your data to MySQL before upgrading. Migrate your data with::
 
-If you are running an existing platform, you are strongly encouraged to migrate to the new MySQL backend, as the MongoDB backend will disappear in Teak. To do so, you should start by migrating your data::
+    tutor local run lms ./manage.py lms forum_migrate_course_from_mongodb_to_mysql all
 
-    tutor local run lms ./manage.py lms forum_migrate_course_from_mongodb_to_mysql --no-toggle all
-
-This command is non-destructive for your data, and can be run multiple times with the same outcome. Once the data migration is successful, you should enable the ``forum_v2.enable_mysql_backend`` global course waffle flag::
-
-    tutor local run lms ./manage.py lms waffle_flag --create --everyone forum_v2.enable_mysql_backend
-
-The forum will then make use of data stored in MySQL instead of MongoDB. Once you are sufficiently confident that the MongoDB data is no longer necessary, you may delete it with::
+This command is non-destructive for your data, and can be run multiple times with the same outcome. Once you are sufficiently confident that the MongoDB data is no longer necessary, you may delete it with::
 
     tutor local run lms ./manage.py lms forum_delete_course_from_mongodb all
 
 For a more progressive transition, you may decide to migrate data for a single course::
 
-    # removing the no-toggle option will automatically create the course waffle flag just for this course
     tutor local run lms ./manage.py lms forum_migrate_course_from_mongodb_to_mysql <course ID>
     # deleting data is optional and should be done only if you are confident that the migration was successful
     tutor local run lms ./manage.py lms forum_delete_course_from_mongodb <course ID>
