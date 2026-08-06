@@ -1,1 +1,0 @@
-- [Bugfix] Drop obsolete init tasks: the `forum_create_mongodb_indexes` management command was removed in `openedx/forum` 0.4.3, and the `discussions.enable_forum_v2` and `forum_v2.enable_mysql_backend` waffle flags no longer exist in edx-platform/forum. Update the README's MongoDB-to-MySQL migration instructions accordingly. (by @arbrandes)
