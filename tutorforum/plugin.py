@@ -24,7 +24,7 @@ tutor_hooks.Filters.ENV_PATCHES.add_item(
         "openedx-common-settings",
         """# Forum configuration
 FORUM_SEARCH_BACKEND = "forum.search.meilisearch.MeilisearchBackend"
-FEATURES["ENABLE_DISCUSSION_SERVICE"] = True
+ENABLE_DISCUSSION_SERVICE = True
 # Forum mongodb configuration, for existing platforms still running mongodb
 FORUM_MONGODB_DATABASE = "cs_comments_service"
 FORUM_MONGODB_CLIENT_PARAMETERS = {
