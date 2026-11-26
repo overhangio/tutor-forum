@@ -18,7 +18,7 @@ build-pythonpackage: ## Build the "tutor-forum" python package for upload to pyp
 	python -m build --sdist
 
 test-pythonpackage: build-pythonpackage ## Test that package can be uploaded to pypi
-	twine check dist/tutor_forum-$(shell make version).tar.gz
+	twine check dist/tutor_forum-$(shell $(MAKE) --no-print-directory version).tar.gz
 
 format: ## Format code automatically.
 	ruff format ${SRC_DIRS}
